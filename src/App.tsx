@@ -1,14 +1,8 @@
 import { useState } from "react"
 import "./App.css"
+import { compute, formatNumber, type Operator as BaseOp } from "./lib/calc"
 
-type Operator = "+" | "-" | "×" | "÷" | null
-
-function formatNumber(value: string) {
-  const [int, dec] = value.split(".")
-  const i = Number(int)
-  const intl = new Intl.NumberFormat("en-US").format(isNaN(i) ? 0 : i)
-  return dec !== undefined ? `${intl}.${dec}` : intl
-}
+type Operator = BaseOp | null
 
 function App() {
   const [current, setCurrent] = useState<string>("0")
@@ -67,18 +61,6 @@ function App() {
       setOperator(null)
       setOverwrite(true)
     }
-  }
-
-  function compute(a: string, b: string, op: Exclude<Operator, null>) {
-    const x = Number(a)
-    const y = Number(b)
-    let r = 0
-    if (op === "+") r = x + y
-    else if (op === "-") r = x - y
-    else if (op === "×") r = x * y
-    else if (op === "÷") r = y === 0 ? NaN : x / y
-    const s = String(r)
-    return s.includes(".") ? String(Number(r.toFixed(12))) : s
   }
 
   const display = formatNumber(current)
