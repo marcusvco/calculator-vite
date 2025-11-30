@@ -9,7 +9,7 @@ export default defineConfig({
     video: 'retain-on-failure',
   },
   webServer: {
-    command: 'pnpm run preview',
+    command: 'npm run preview',
     url: 'http://localhost:4173',
     reuseExistingServer: !process.env.CI,
   },
